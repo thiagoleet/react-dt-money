@@ -30,7 +30,7 @@ export function Summary() {
         <strong>{priceFormatter.format(summary.outcome)}</strong>
       </SummaryCard>
 
-      <SummaryCard $variant="green">
+      <SummaryCard $variant={summary.total >= 0 ? "green" : "red"}>
         <header>
           <span>Total</span>
           <CurrencyDollar
