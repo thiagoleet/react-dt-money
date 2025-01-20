@@ -6,6 +6,7 @@ import {
   TransactionsTable,
   TransactionsWrapper,
 } from "./styles";
+import { SearchForm } from "./components/SearchForm";
 
 export function TransactionsPage() {
   return (
@@ -14,7 +15,7 @@ export function TransactionsPage() {
       <Summary />
 
       <TransactionsContainer>
-        {" "}
+        <SearchForm />
         <TransactionsTable>
           <tbody>
             <tr>
