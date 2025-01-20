@@ -1,5 +1,5 @@
 import { Transaction } from "@/models/Transaction";
-import { createContext } from "react";
+import { createContext } from "use-context-selector";
 
 export interface CreateTransactionInput {
   description: string;
