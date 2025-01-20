@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { Summary } from "@/components/Summary";
 import { Header } from "@/components/Header";
 import {
@@ -10,9 +9,12 @@ import {
 import { SearchForm } from "./components/SearchForm";
 import TransactionsContext from "@/contexts/Transactions/context";
 import { dateFormatter, priceFormatter } from "@/utils/formatter";
+import { useContextSelector } from "use-context-selector";
 
 export function TransactionsPage() {
-  const { transactions } = useContext(TransactionsContext);
+  const transactions = useContextSelector(TransactionsContext, (context) => {
+    return context.transactions;
+  });
 
   return (
     <TransactionsWrapper>
