@@ -1,6 +1,6 @@
 import { Transaction } from "@/models/Transaction";
 import TransactionsContext, { CreateTransactionInput } from "./context";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { api } from "@/lib/axios";
 
 interface TransactionsProviderProps {
@@ -10,7 +10,7 @@ interface TransactionsProviderProps {
 function TransactionsProvider({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  async function fetchTransactions(query?: string) {
+  const fetchTransactions = useCallback(async (query?: string) => {
     const { data } = await api.get<Transaction[]>("/transactions", {
       params: {
         _sort: "createdAt",
@@ -20,31 +20,34 @@ function TransactionsProvider({ children }: TransactionsProviderProps) {
     });
 
     setTransactions(data);
-  }
+  }, []);
 
-  async function createTransaction(data: CreateTransactionInput) {
-    try {
-      const { description, price, category, type } = data;
+  const createTransaction = useCallback(
+    async (data: CreateTransactionInput) => {
+      try {
+        const { description, price, category, type } = data;
 
-      const response = await api.post("/transactions", {
-        id: crypto.randomUUID(),
-        description,
-        price,
-        category,
-        type,
-        createdAt: new Date(),
-      });
+        const response = await api.post("/transactions", {
+          id: crypto.randomUUID(),
+          description,
+          price,
+          category,
+          type,
+          createdAt: new Date(),
+        });
 
-      setTransactions((prev) => [response.data, ...prev]);
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  }
+        setTransactions((prev) => [response.data, ...prev]);
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     fetchTransactions();
-  }, []);
+  }, [fetchTransactions]);
 
   return (
     <TransactionsContext.Provider
