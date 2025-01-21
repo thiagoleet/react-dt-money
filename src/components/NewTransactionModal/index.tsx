@@ -71,6 +71,7 @@ export function NewTransactionModal() {
             <input
               type="text"
               placeholder="Descrição"
+              aria-describedby="Descrição"
               required
               {...register("description")}
             />
@@ -78,6 +79,7 @@ export function NewTransactionModal() {
             <input
               type="number"
               placeholder="Preço"
+              aria-describedby="Preço"
               required
               {...register("price", { valueAsNumber: true })}
             />
@@ -85,6 +87,7 @@ export function NewTransactionModal() {
             <input
               type="text"
               placeholder="Categoria"
+              aria-describedby="Categoria"
               required
               {...register("category")}
             />
