@@ -1,7 +1,7 @@
-import { Transaction } from "@/models/Transaction";
-import TransactionsContext, { CreateTransactionInput } from "./context";
 import { useCallback, useEffect, useState } from "react";
+import { Transaction } from "@/models/Transaction";
 import { api } from "@/lib/axios";
+import TransactionsContext, { CreateTransactionInput } from "./context";
 
 interface TransactionsProviderProps {
   children: React.ReactNode;
@@ -39,6 +39,7 @@ function TransactionsProvider({ children }: TransactionsProviderProps) {
         setTransactions((prev) => [response.data, ...prev]);
       } catch (error) {
         console.error(error);
+
         throw error;
       }
     },
